@@ -22,9 +22,9 @@
 - name: Change ownership of Tomcat installation
   file: path=/usr/share/tomcat/ owner=tomcat group=tomcat state=directory recurse=yes
 
-- name: Configure Tomcat server
-  template: src=server.xml dest=/usr/share/tomcat/conf/
-  notify: restart tomcat
+#- name: Configure Tomcat server
+#  template: src=server.xml dest=/usr/share/tomcat/conf/
+#  notify: restart tomcat
 
 - name: Configure Tomcat users
   template: src=tomcat-users.xml dest=/usr/share/tomcat/conf/
@@ -37,7 +37,7 @@
   shell: systemctl daemon-reload
 
 - name: Start Tomcat
-  service: name=tomcat state=started enabled=yes
+  notify: restart tomcat
 
 - name: wait for tomcat to start
-  wait_for: port={{http_port}}
+  wait_for: port=8082

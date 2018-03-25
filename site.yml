@@ -7,8 +7,8 @@
   become: yes
   become_method: sudo
 
-  pre_tasks:
-    - debug: var=version
+#  pre_tasks:
+#    - debug: var=version
  # choice the tomcat version
   roles:  
     -  role: tomcat
